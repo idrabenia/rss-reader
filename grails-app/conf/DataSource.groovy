@@ -13,8 +13,12 @@ hibernate {
 environments {
     development {
         dataSource {
+            pooled = true
+            driverClassName = 'com.mysql.jdbc.Driver'
+            username = 'root'
+            password = 'root'
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE"
+            url = 'jdbc:mysql://localhost:3306/rss_reader'
         }
     }
     test {

@@ -19,6 +19,7 @@ environments {
             password = 'root'
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = 'jdbc:mysql://localhost:3306/rss_reader'
+            logSql = true
         }
     }
     test {

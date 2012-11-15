@@ -91,3 +91,14 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'idrabenia.domain.security.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'idrabenia.domain.security.UserRole'
+grails.plugins.springsecurity.authority.className = 'idrabenia.domain.security.Role'
+
+grails.plugins.springsecurity.securityConfigType = 'InterceptUrlMap'
+grails.plugins.springsecurity.interceptUrlMap = [
+   '/rss/**':   ['IS_AUTHENTICATED_FULLY'],
+   '/*':        ['IS_AUTHENTICATED_ANONYMOUSLY']
+]

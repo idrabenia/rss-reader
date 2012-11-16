@@ -10,7 +10,7 @@
     <tr>
       <td>${index + 1}.</td>
       <td>
-        <a href="${it.link}">${it.title.encodeAsHTML()}</a>
+        <a href="${it.link}" title="${it.title.encodeAsHTML()}">${it.title.encodeAsHTML()}</a>
       </td>
       <td>
         <g:formatDate date="${it.creationDate}" format="dd-MM-yyyy"/>

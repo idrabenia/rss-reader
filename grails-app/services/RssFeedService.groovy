@@ -19,6 +19,7 @@ class RssFeedService {
      * It throws exceptions if not possible to parse specified feed
      * @param feedUrl
      * @throws java.text.ParseException
+     * @throws org.springframework.web.client.RestClientException
      */
     void addRssFeed(String feedUrl) {
         Validate.notNull(feedUrl)

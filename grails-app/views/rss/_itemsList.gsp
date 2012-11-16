@@ -3,8 +3,10 @@
     Template for render list of RSS items stored in database
 --%>
 
+<g:set var="userName" value="${request.userPrincipal.name}" />
+
 <table class="rssItemsTable">
-  <g:each status="index" var="it" in="${RssItem.list(sort: 'creationDate', order: 'desc')}">
+  <g:each status="index" var="it" in="${rssItems}">
     <tr>
       <td>${index + 1}.</td>
       <td>

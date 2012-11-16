@@ -1,6 +1,7 @@
 import idrabenia.domain.security.RegistrationInfo
 import org.apache.commons.lang.Validate
 import idrabenia.domain.security.User
+import org.apache.commons.lang.RandomStringUtils
 
 /**
  * Service used for process registration of new users in system
@@ -8,6 +9,8 @@ import idrabenia.domain.security.User
  * @since 16.11.12
  */
 class RegistrationService {
+
+    private static final int RANDOM_PASSWORD_CHAR_COUNT = 10
 
     /**
      * Method for register new user by existing email
@@ -17,7 +20,7 @@ class RegistrationService {
     User registerNewUser(RegistrationInfo registrationInfo) {
         Validate.notNull(registrationInfo)
 
-        registrationInfo.password = UUID.randomUUID().toString()
+        registrationInfo.password = RandomStringUtils.randomAlphanumeric(RANDOM_PASSWORD_CHAR_COUNT)
         new User(username: registrationInfo.email, password: registrationInfo.password, enabled: true).save(flush: true)
     }
 

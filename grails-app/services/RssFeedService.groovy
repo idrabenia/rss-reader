@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat
  */
 class RssFeedService {
 
+    private static final String PUB_DATE_PATTERN = 'EEE, dd MMM yyyy HH:mm:ss zzz'
+
     RestTemplate restTemplate
 
     /**
@@ -21,28 +23,30 @@ class RssFeedService {
      * @throws java.text.ParseException
      * @throws org.springframework.web.client.RestClientException
      */
-    void addRssFeed(String feedUrl) {
+    void addRssFeed(String userName, String feedUrl) {
+        Validate.notNull(userName)
         Validate.notNull(feedUrl)
 
         String xml = restTemplate.getForObject(feedUrl, String.class)
 
         def xmlMap = new XmlSlurper().parseText(xml)
         xmlMap.channel.item.each { curItem ->
-            convertItemToObject(curItem).saveOrUpdate()
+            convertItemToObject(userName, curItem).saveOrUpdate()
         }
     }
 
-    private RssItem convertItemToObject(item) {
+    private RssItem convertItemToObject(userName, item) {
         new RssItem(
                 guid: item.guid.toString(),
                 title: item.title.toString(),
                 link: item.link.toString(),
+                creatorUserName: userName,
                 creationDate: makeDateFormat().parse(item.pubDate.toString()))
     }
 
     private DateFormat makeDateFormat() {
         // date format is not thread safe then we need to make it each time
-        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH)
+        new SimpleDateFormat(PUB_DATE_PATTERN, Locale.ENGLISH)
     }
 
 }

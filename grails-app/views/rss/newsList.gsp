@@ -28,7 +28,6 @@
 
     <!-- Logout Button -->
     <span><g:message code="newsList.buttonsSeparator.label" /></span>
-
     <input id="logoutButton" type="button" value="${g.message(code: 'logout.button.message')}" />
 
     <!-- List of news -->

@@ -76,3 +76,8 @@
 #login .inner .chk {
     height: 12px;
 }
+
+.passwordOutput {
+    position: relative;
+    top: 3px;
+}

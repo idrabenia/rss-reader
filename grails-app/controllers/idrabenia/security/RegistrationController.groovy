@@ -4,7 +4,7 @@ import idrabenia.domain.security.RegistrationInfo
 import grails.converters.JSON
 
 /**
- * 
+ * Controller used for registration of new users
  * @author Ilya Drabenia
  * @since 16.11.12
  */

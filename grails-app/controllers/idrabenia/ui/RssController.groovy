@@ -1,11 +1,9 @@
 package idrabenia.ui
 
-import java.text.ParseException
-import org.springframework.web.client.RestClientException
 import idrabenia.domain.RssItem
 
 /**
- *
+ * Controller used for make operations with RSS items list
  * @author Ilya Drabenia
  * @since 13.11.12
  */
@@ -14,12 +12,12 @@ class RssController {
     def rssFeedService
 
     def newsList = {
-
+        render(view: 'newsList', model: [rssItems: listRssItemsForCurrentUser()])
     }
 
     def addNewsFeed = {
         try {
-            rssFeedService.addRssFeed(params.feedUrl)
+            rssFeedService.addRssFeed(currentUserName, params.feedUrl)
             render 'Ok'
         } catch (Exception ex) {
             render 'Error'
@@ -27,12 +25,20 @@ class RssController {
     }
 
     def listRssItems = {
-        render(template: 'itemsList')
+        render(template: 'itemsList', model: [rssItems: listRssItemsForCurrentUser()])
     }
 
     def removeItem = {
-        RssItem.findByGuid(params.guid)?.delete()
+        RssItem.findByGuidAndCreatorUserName(params.guid, currentUserName)?.delete()
         render 'Ok'
+    }
+
+    private String getCurrentUserName() {
+        request.userPrincipal.name
+    }
+
+    private listRssItemsForCurrentUser() {
+        RssItem.listItemsForUser(currentUserName)
     }
 
 }
